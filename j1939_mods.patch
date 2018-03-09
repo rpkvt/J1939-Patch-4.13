@@ -1,5 +1,5 @@
 diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 09271da..53a2932 100644
+index 09271da..d8077a0 100644
 --- a/net/ipv4/tcp_ipv4.c
 +++ b/net/ipv4/tcp_ipv4.c
 @@ -1268,7 +1268,7 @@ static void tcp_v4_init_req(struct request_sock *req,
@@ -7,7 +7,7 @@ index 09271da..53a2932 100644
  	sk_rcv_saddr_set(req_to_sk(req), ip_hdr(skb)->daddr);
  	sk_daddr_set(req_to_sk(req), ip_hdr(skb)->saddr);
 -	RCU_INIT_POINTER(ireq->ireq_opt, tcp_v4_save_options(skb));
-+	RCU_INIT_POINTER(ireq->ireq_opt, tcp_v4_save_options(dev_net(skb),skb));
++	RCU_INIT_POINTER(ireq->ireq_opt, tcp_v4_save_options(dev_net(skb->dev),skb));
  }
  
  static struct dst_entry *tcp_v4_route_req(const struct sock *sk,
